@@ -1,3 +1,3 @@
 ## Welcome to Hideyuki Hotta's GitHub Pages
 
-このページでは
+このページでは、堀田の作っている数値計算コードの取扱説明書を提供する
