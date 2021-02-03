@@ -6,7 +6,7 @@
 
 /* before 1st chime */
 .phase-0{
-	background-color: aliceblue;
+	background-color: white;
 	/* styles for body element */
 }
 
@@ -20,32 +20,43 @@
 
 /* after 1st chime before 2nd chime */
 .phase-1{
-	background-color: aliceblue;
+	background-color: white;
 	/* styles for body element */
 }
 
 .phase-1 #time{
-	color: red;
+	color: orange;
 }
 
 .phase-1 #info{
-	color: red;
+	color: orange;
 }
 
 /* after 2nd chime before 3rd chime */
 .phase-2{
+	background-color: white;
 	/* styles for body element */
 }
 .phase-2 #time{
-	color: yellow;
+	color:red;
+}
+
+.phase-2 #info{
+	color: red;
 }
 
 /* after 3rd chime */
 .phase-3{
+	background-color: white;
 	/* styles for body element */
-	background-color: red;
 }
+
 .phase-3 #time{
+	color:red;
+}
+
+.phase-3 #info{
+	color: red;
 }
 
 
