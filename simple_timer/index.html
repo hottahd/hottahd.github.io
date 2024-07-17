@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000000; /* 背景を黒に設定 */
+            font-family: Arial, sans-serif;
+            color: #FFFFFF; /* 文字を白に設定 */
+        }
+        .container {
+            text-align: center;
+        }
+        #timer {
+            font-size: 3em;
+            margin-bottom: 20px;
+            font-family: 'Roboto Mono', monospace; /* スタイリッシュな等幅フォントを使用 */
+        }
+        button {
+            font-size: 1.5em;
+            margin: 5px;
+            padding: 10px 20px;
+            background-color: #444444; /* ボタンの背景色をダークグレーに設定 */
+            color: #FFFFFF; /* ボタンの文字色を白に設定 */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555555; /* ボタンのホバー時の背景色を少し明るく */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="timer">00:00:00.00</div>
+        <button onclick="startTimer()">Start</button>
+        <button onclick="stopTimer()">Stop</button>
+        <button onclick="resetTimer()">Reset</button>
+    </div>
+    <script>
+        let startTime;
+        let elapsedTime = 0;
+        let timerInterval;
+        let running = false;
+
+        function formatTime(milliseconds) {
+            const h = String(Math.floor(milliseconds / 3600000)).padStart(2, '0');
+            const m = String(Math.floor((milliseconds % 3600000) / 60000)).padStart(2, '0');
+            const s = String(Math.floor((milliseconds % 60000) / 1000)).padStart(2, '0');
+            const ms = String(milliseconds % 1000).padStart(3, '0').slice(0, 2);
+            return `${h}:${m}:${s}.${ms}`;
+        }
+
+        function updateTime() {
+            const now = performance.now();
+            elapsedTime = now - startTime;
+            document.getElementById('timer').textContent = formatTime(elapsedTime);
+            if (running) {
+                requestAnimationFrame(updateTime);
+            }
+        }
+
+        function startTimer() {
+            if (!running) {
+                running = true;
+                startTime = performance.now() - elapsedTime;
+                requestAnimationFrame(updateTime);
+            }
+        }
+
+        function stopTimer() {
+            running = false;
+        }
+
+        function resetTimer() {
+            running = false;
+            elapsedTime = 0;
+            document.getElementById('timer').textContent = "00:00:00.00";
+        }
+    </script>
+</body>
+</html>
