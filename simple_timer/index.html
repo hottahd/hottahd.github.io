@@ -33,6 +33,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            width: 100px; /* ボタンの幅を固定 */
         }
         button:hover {
             background-color: #555555; /* ボタンのホバー時の背景色を少し明るく */
@@ -50,8 +51,7 @@
     <div class="container">
         <div id="currentTime"></div>
         <div id="timer">00:00:00.00</div>
-        <button onclick="startTimer()">Start</button>
-        <button onclick="stopTimer()">Stop</button>
+        <button id="startStopButton" onclick="toggleTimer()">Start</button>
         <button onclick="resetTimer()">Reset</button>
     </div>
     <script>
@@ -77,22 +77,31 @@
             }
         }
 
-        function startTimer() {
-            if (!running) {
-                running = true;
-                startTime = performance.now() - elapsedTime;
-                requestAnimationFrame(updateTime);
+        function toggleTimer() {
+            if (running) {
+                stopTimer();
+            } else {
+                startTimer();
             }
+        }
+
+        function startTimer() {
+            running = true;
+            startTime = performance.now() - elapsedTime;
+            document.getElementById('startStopButton').textContent = "Stop";
+            requestAnimationFrame(updateTime);
         }
 
         function stopTimer() {
             running = false;
+            document.getElementById('startStopButton').textContent = "Start";
         }
 
         function resetTimer() {
             running = false;
             elapsedTime = 0;
             document.getElementById('timer').textContent = "00:00:00.00";
+            document.getElementById('startStopButton').textContent = "Start";
         }
 
         function updateCurrentTime() {
