@@ -6,14 +6,36 @@
     <title>Timer</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --background-color-dark: linear-gradient(135deg, #000000, #2E2E2E, #330000);
+            --background-color-light: linear-gradient(135deg, #FFFFFF, #DDDDDD, #BBBBBB);
+            --text-color-dark: #FFFFFF;
+            --text-color-light: #000000;
+            --button-background-dark: #444444;
+            --button-background-light: #AAAAAA;
+            --button-hover-dark: #555555;
+            --button-hover-light: #888888;
+        }
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(135deg, #000000, #2E2E2E, #330000); /* 黒から赤みがかった黒へのグラデーション背景 */
+            background: var(--background-color-dark);
             font-family: Arial, sans-serif;
-            color: #FFFFFF; /* 文字を白に設定 */
+            color: var(--text-color-dark);
+            transition: background 0.3s, color 0.3s;
+        }
+        .light-mode {
+            background: var(--background-color-light);
+            color: var(--text-color-light);
+        }
+        .light-mode button {
+            background-color: var(--button-background-light);
+            color: var(--text-color-light);
+        }
+        .light-mode button:hover {
+            background-color: var(--button-hover-light);
         }
         .container {
             text-align: center;
@@ -22,34 +44,64 @@
         #timer {
             font-size: 3em;
             margin-bottom: 20px;
-            font-family: 'Roboto Mono', monospace; /* スタイリッシュな等幅フォントを使用 */
+            font-family: 'Roboto Mono', monospace;
         }
         button {
-            font-size: 1.5em;
+            font-size: 1.2em;
             margin: 5px;
             padding: 10px 20px;
-            background-color: #444444; /* ボタンの背景色をダークグレーに設定 */
-            color: #FFFFFF; /* ボタンの文字色を白に設定 */
+            background-color: var(--button-background-dark);
+            color: var(--text-color-dark);
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            width: 100px; /* ボタンの幅を固定 */
+            min-width: 100px;
+            transition: background-color 0.3s, color 0.3s;
         }
         button:hover {
-            background-color: #555555; /* ボタンのホバー時の背景色を少し明るく */
+            background-color: var(--button-hover-dark);
+        }
+        #currentTimeContainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 10px;
+            position: relative;
+            top: 10px;
         }
         #currentTime {
             font-size: 1em;
-            position: absolute;
-            top: -20px; /* 少し下に移動 */
-            left: 0;
             font-family: 'Roboto Mono', monospace;
+        }
+        .theme-button-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: var(--button-background-dark);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .theme-button-container:hover {
+            background-color: var(--button-hover-dark);
+        }
+        .theme-button-icon {
+            font-size: 1.2em;
+            color: var(--text-color-dark);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div id="currentTime"></div>
+        <div id="currentTimeContainer">
+            <div id="currentTime"></div>
+            <div class="theme-button-container" onclick="toggleTheme()">
+                <div id="themeButton" class="theme-button-icon">&#9788;</div>
+            </div>
+        </div>
         <div id="timer">00:00:00.00</div>
         <button id="startStopButton" onclick="toggleTimer()">Start</button>
         <button onclick="resetTimer()">Reset</button>
@@ -64,7 +116,7 @@
             const h = String(Math.floor(milliseconds / 3600000)).padStart(2, '0');
             const m = String(Math.floor((milliseconds % 3600000) / 60000)).padStart(2, '0');
             const s = String(Math.floor((milliseconds % 60000) / 1000)).padStart(2, '0');
-            const ms = String(milliseconds % 1000).padStart(3, '0').slice(0, 2);
+            const ms = String(Math.floor(milliseconds % 1000 / 10)).padStart(2, '0');
             return `${h}:${m}:${s}.${ms}`;
         }
 
@@ -89,6 +141,7 @@
             running = true;
             startTime = performance.now() - elapsedTime;
             document.getElementById('startStopButton').textContent = "Stop";
+            document.getElementById('startStopButton').style.minWidth = "100px";
             requestAnimationFrame(updateTime);
         }
 
@@ -116,8 +169,18 @@
             document.getElementById('currentTime').textContent = `${year}.${month}.${date} (${day}) ${hours}:${minutes}:${seconds}`;
         }
 
-        updateCurrentTime(); // ページが読み込まれた直後に現在時刻を設定
-        setInterval(updateCurrentTime, 1000); // 1秒ごとに現在時刻を更新
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const themeButton = document.getElementById('themeButton');
+            if (document.body.classList.contains('light-mode')) {
+                themeButton.innerHTML = "&#9790;";
+            } else {
+                themeButton.innerHTML = "&#9788;";
+            }
+        }
+
+        updateCurrentTime();
+        setInterval(updateCurrentTime, 1000);
     </script>
 </body>
 </html>
