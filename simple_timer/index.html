@@ -17,6 +17,7 @@
         }
         .container {
             text-align: center;
+            position: relative;
         }
         #timer {
             font-size: 3em;
@@ -36,10 +37,18 @@
         button:hover {
             background-color: #555555; /* ボタンのホバー時の背景色を少し明るく */
         }
+        #currentTime {
+            font-size: 1em;
+            position: absolute;
+            top: -20px; /* 少し下に移動 */
+            left: 0;
+            font-family: 'Roboto Mono', monospace;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <div id="currentTime">2024.07.18(Tue.) 10:53:10</div>
         <div id="timer">00:00:00.00</div>
         <button onclick="startTimer()">Start</button>
         <button onclick="stopTimer()">Stop</button>
@@ -85,6 +94,20 @@
             elapsedTime = 0;
             document.getElementById('timer').textContent = "00:00:00.00";
         }
+
+        function updateCurrentTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const date = String(now.getDate()).padStart(2, '0');
+            const day = ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'][now.getDay()];
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('currentTime').textContent = `${year}.${month}.${date} (${day}) ${hours}:${minutes}:${seconds}`;
+        }
+
+        setInterval(updateCurrentTime, 1000); // 1秒ごとに現在時刻を更新
     </script>
 </body>
 </html>
