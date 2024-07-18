@@ -48,7 +48,7 @@
 </head>
 <body>
     <div class="container">
-        <div id="currentTime">2024.07.18(Tue.) 10:53:10</div>
+        <div id="currentTime"></div>
         <div id="timer">00:00:00.00</div>
         <button onclick="startTimer()">Start</button>
         <button onclick="stopTimer()">Stop</button>
@@ -107,6 +107,7 @@
             document.getElementById('currentTime').textContent = `${year}.${month}.${date} (${day}) ${hours}:${minutes}:${seconds}`;
         }
 
+        updateCurrentTime(); // ページが読み込まれた直後に現在時刻を設定
         setInterval(updateCurrentTime, 1000); // 1秒ごとに現在時刻を更新
     </script>
 </body>
