@@ -56,10 +56,13 @@
             border-radius: 5px;
             cursor: pointer;
             min-width: 100px;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s, color 0.3s, transform 0.1s;
         }
         button:hover {
             background-color: var(--button-hover-dark);
+        }
+        button:active {
+            transform: scale(0.95);
         }
         #currentTimeContainer {
             display: flex;
