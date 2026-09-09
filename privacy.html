@@ -17,7 +17,7 @@
 <body>
 
 <h1>hotta-notes プライバシーポリシー</h1>
-<p class="date">最終更新: 2026年9月9日</p>
+<p class="date">最終更新: 2026年9月9日（スコープ追加）</p>
 
 <h2>このアプリについて</h2>
 <p><strong>hotta-notes</strong> は、堀田英之（名古屋大学 宇宙地球環境研究所）が
@@ -28,10 +28,13 @@
 <p>本アプリは、利用者本人が Google アカウントで明示的に許可した場合にかぎり、
 次の範囲にアクセスします。</p>
 <ul>
-  <li><code>https://www.googleapis.com/auth/spreadsheets</code> —
-      利用者が指定した Google スプレッドシートの読み取りと書き込み</li>
-  <li><code>https://www.googleapis.com/auth/drive.file</code> —
-      本アプリが作成したファイルの管理</li>
+  <li><code>.../auth/spreadsheets</code> — 利用者が指定した Google スプレッドシートの読み取りと書き込み</li>
+  <li><code>.../auth/drive.file</code> — 本アプリが作成したファイルの管理</li>
+  <li><code>.../auth/calendar.readonly</code>, <code>.../auth/calendar.events</code> —
+      利用者本人のカレンダーの予定の読み取りと登録</li>
+  <li><code>.../auth/documents</code> — 利用者が指定した Google ドキュメントの読み取りと編集</li>
+  <li><code>.../auth/forms.body</code>, <code>.../auth/forms.responses.readonly</code> —
+      利用者が作成した Google フォームの編集と回答の読み取り</li>
 </ul>
 <p>これ以外の Google のデータ（メール、連絡先、Drive 内の他のファイルなど）には
 アクセスしません。</p>
@@ -60,7 +63,7 @@
 <hr>
 
 <h1>hotta-notes Privacy Policy</h1>
-<p class="date">Last updated: September 9, 2026</p>
+<p class="date">Last updated: September 9, 2026 (scopes added)</p>
 
 <h2>About this application</h2>
 <p><strong>hotta-notes</strong> is a personal script written by Hideyuki Hotta
@@ -72,6 +75,11 @@ research notes and schedules. It is not distributed, and has no users other than
 <ul>
   <li><code>.../auth/spreadsheets</code> — reading and writing Google Sheets specified by the user</li>
   <li><code>.../auth/drive.file</code> — managing files this application itself created</li>
+  <li><code>.../auth/calendar.readonly</code>, <code>.../auth/calendar.events</code> —
+      reading and creating events on the user's own calendar</li>
+  <li><code>.../auth/documents</code> — reading and editing Google Docs specified by the user</li>
+  <li><code>.../auth/forms.body</code>, <code>.../auth/forms.responses.readonly</code> —
+      editing Google Forms created by the user and reading their responses</li>
 </ul>
 <p>No other Google data (mail, contacts, other Drive files) is accessed.</p>
 
